@@ -27,7 +27,8 @@ const customDataProvider = {
             ...params.filter,
             // filter: JSON.stringify(params.filter),
         };
-        const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/${resource}?${fetchUtils.queryParameters(query)}`;
+        const endpoint = resource === 'editor' || resource === 'admin' ? 'users' : resource;
+        const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/${endpoint}?${fetchUtils.queryParameters(query)}`;
 
         const response = await httpClient(url);
         const data = response.json.data;
@@ -57,17 +58,14 @@ const customListWithIdDataProvider = {
 
         const response = await httpClient(url);
         let data = response.json;
-        console.log(data);
 
         // Custom logic to fetch the total count
         // const totalResponse = await  httpClient(`${import.meta.env.VITE_SIMPLE_REST_URL}/${resource}/count`);
         // @ts-ignore
         const total = response.json.numberOfElements ?? 0;
-        console.log(total);
 
         let id = 0;
         data = data.map((record) => ({ id: id++, ...record }));
-        console.log(data);
 
         return {
             data,
@@ -83,13 +81,11 @@ const customListDataProvider = {
 
         const response = await httpClient(url);
         let data = response.json;
-        console.log(data);
 
         // Custom logic to fetch the total count
         // const totalResponse = await  httpClient(`${import.meta.env.VITE_SIMPLE_REST_URL}/${resource}/count`);
         // @ts-ignore
         const total = response.json.numberOfElements ?? 0;
-        console.log(total);
 
         return {
             data,
@@ -101,7 +97,7 @@ const customListDataProvider = {
 const dataProviders = [
     {
         dataProvider: customDataProvider,
-        resources: ['users'],
+        resources: ['users', 'editor', 'admin'],
     },
     {
         dataProvider: customDataProvider,

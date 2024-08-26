@@ -7,8 +7,6 @@ const UserSidebar = () => (
     <Card sx={{ order: -1, mr: 2, mt: 9, width: 200 }}>
         <CardContent>
             <FilterList label="Account Type" icon={<CategoryIcon />}>
-                <FilterListItem label={"Editor"} value={{ accountType: 'EDITOR' }} />
-                <FilterListItem label={"Admin"} value={{ accountType: 'ADMIN' }} />
                 <FilterListItem label={"Developer"} value={{ accountType: 'DEVELOPER' }} />
                 <FilterListItem label={"Principle"} value={{ accountType: 'PRINCIPLE' }} />
             </FilterList>
