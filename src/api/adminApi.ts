@@ -1,6 +1,7 @@
 import axios, {AxiosResponse} from "axios";
 import {JwtHeader, JwtPayload} from "jwt-decode";
 import httpClient from "../utils/httpClient";
+import { RecalculateOrderButton } from '../views/user/components/RecalculateDevelopersPopularityRate';
 import.meta.env.VITE_SIMPLE_REST_URL 
 
 export interface AuthPayload {
@@ -37,4 +38,20 @@ export const loadAddresses = () => {
 }
 export const loadAddressesForceStop = () => {
     return  httpClient(import.meta.env.VITE_SIMPLE_REST_URL + "/static-data/addresses/load/forceStop", {method: "POST"})
+ }
+
+ export const recalculateDevelopersPopularityRate = () => {
+    return httpClient(import.meta.env.VITE_SIMPLE_REST_URL + "/admin/users/recalculate-developers-popularity-rate", {method: "POST"})
+ }
+
+ export const recalculateJobOffersPopularityRate = () => {
+    return httpClient(import.meta.env.VITE_SIMPLE_REST_URL + "/admin/job-offers/recalculate-popularity-rate", {method: "POST"})
+ }
+
+ export const clearUserCache = () => {
+    return httpClient(import.meta.env.VITE_SIMPLE_REST_URL + "/cache/users/clear", {method: "POST"})
+ }
+
+ export const clearJobOfferCache = () => {
+    return httpClient(import.meta.env.VITE_SIMPLE_REST_URL + "/cache/job-offers/clear", {method: "POST"})
  }

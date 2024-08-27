@@ -49,7 +49,7 @@ const customDataProvider = {
     delete: (resource, params) => {
         if(resource === 'admin' || resource === 'editor'){
 
-        const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/admin/delete-user/${params.id}`;
+        const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/admin/users/delete-user/${params.id}`;
             return httpClient(url, {
                 method: 'DELETE',
             }).then(({ json }) => ({ data: json }));
@@ -61,7 +61,7 @@ const customDataProvider = {
         if(resource === 'admin' || resource === 'editor'){
 
             console.log(params)
-            const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/admin/create-user`;
+            const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/admin/users/create-user`;
             return httpClient(url, {
                 method: 'POST',
                 body: JSON.stringify(params.data)

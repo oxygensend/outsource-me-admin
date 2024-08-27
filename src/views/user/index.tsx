@@ -2,6 +2,8 @@ import { Card, CardContent } from '@mui/material';
 import { Datagrid, EmailField, FilterList, FilterListItem, ImageField, List, Show, SimpleShowLayout, TextField, UrlField } from 'react-admin';
 import CategoryIcon from '@mui/icons-material/LocalOffer';
 import WorkIcon from '@mui/icons-material/Work';
+import { RecalculateDevelopersPopularityRate } from './components/RecalculateDevelopersPopularityRate';
+import { ClearCacheButton } from './components/ClearCacheButton';
 
 const UserSidebar = () => (
     <Card sx={{ order: -1, mr: 2, mt: 9, width: 200 }}>
@@ -21,6 +23,8 @@ const UserSidebar = () => (
 
 export const UserList = () => (
     <List aside={<UserSidebar />}>
+        <RecalculateDevelopersPopularityRate />
+        <ClearCacheButton/>
         <Datagrid rowClick="show">
             <TextField source="id" />
             <ImageField source="imagePath" title="id" sx={{ '& img': { maxWidth: 50, maxHeight: 50, objectFit: 'contain' } }} />

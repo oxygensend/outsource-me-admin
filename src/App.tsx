@@ -1,4 +1,4 @@
-import { Admin, ListGuesser, Menu, Resource, ShowGuesser } from 'react-admin';
+import { Admin, ListGuesser, Menu, MenuItemLink, Resource, ShowGuesser } from 'react-admin';
 import { Layout } from './Layout';
 import { authProvider } from './utils/authProvider';
 import { List, Datagrid, TextField } from 'react-admin';
@@ -27,26 +27,6 @@ const EnumList = () => (
     </List>
 );
 
-const CustomMenu = (props) => (
-    <Menu {...props}>
-        <Menu.Item to="/users" primaryText="Users" leftIcon={<PeopleIcon />} />
-        <Menu.Item to="/job-offers" primaryText="Job Offers" leftIcon={<WorkIcon />} />
-        
-        <Menu.DashboardItem primaryText="Static Data" leftIcon={<StaticDataIcon />}>
-            <Menu.Item to="/static-data/form-of-employments" primaryText="Form of Employments" />
-            <Menu.Item to="/static-data/work-types" primaryText="Work Types" />
-            <Menu.Item to="/static-data/technologies/details" primaryText="Technologies" />
-            <Menu.Item to="/static-data/addresses/with-postal-codes" primaryText="Addresses" />
-            <Menu.Item to="/static-data/about-us/all" primaryText="About Us" />
-        </Menu.DashboardItem>
-
-        <Menu.Item to="/notifications" primaryText="Notifications" leftIcon={<NotificationsIcon />} />
-        <Menu.Item to="/editor" primaryText="Editor" leftIcon={<EditorIcon />} />
-        <Menu.Item to="/admin" primaryText="Admin" leftIcon={<AdminIcon />} />
-    </Menu>
-);
-
-const CustomLayout = (props) => <Layout {...props} menu={CustomMenu} />;
 export const App = () => (
     <Admin layout={Layout} dataProvider={dataProvider} authProvider={authProvider}>
         <Resource name='users' list={UserList} show={UserShow} options={{ label: 'Users' }} />
