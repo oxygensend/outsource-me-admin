@@ -12,6 +12,7 @@ import {
     GET_MANY_REFERENCE,
 } from 'react-admin';
 import httpClient from './httpClient';
+import { create } from 'domain';
 
 const dataProvider = simpleRestProvider(import.meta.env.VITE_SIMPLE_REST_URL, httpClient);
 
@@ -45,6 +46,31 @@ const customDataProvider = {
             total,
         };
     },
+    delete: (resource, params) => {
+        if(resource === 'admin' || resource === 'editor'){
+
+        const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/admin/delete-user/${params.id}`;
+            return httpClient(url, {
+                method: 'DELETE',
+            }).then(({ json }) => ({ data: json }));
+        } else {
+            dataProvider.delete(resource,params)
+        }
+    },
+    create: (resource: ResourceType, params: CareateParams) => {
+        if(resource === 'admin' || resource === 'editor'){
+
+            console.log(params)
+            const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/admin/create-user`;
+            return httpClient(url, {
+                method: 'POST',
+                body: JSON.stringify(params.data)
+            }).then(({ json }) => ({ data: {id: 11, success: "Bravooo"} }));
+        } else {
+            dataProvider.create(resource,params)
+        } 
+
+    }
 };
 
 const customListWithIdDataProvider = {
@@ -92,6 +118,38 @@ const customListDataProvider = {
             total: data.length,
         };
     },
+    update: async(resource: ResourceType, params: UpdateParams) => {
+        if(resource === "static-data/technologies") {
+            const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/static-data/technologies/${params.id}`;
+            return await httpClient(url, {method: "PATCH", body: params.data.featured, headers: new Headers({"Content-Type": "application/json"})}).then(({ json }) => ({ data: json }));
+        } else {
+            return dataProvider.update(resource, params);
+        }
+    },
+    delete: (resource: ResourceType, params: UpdateParams) => {
+        if(resource === "static-data/technologies/details") {
+            const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/static-data/technologies/${params.id}`;
+                return httpClient(url, {
+                    method: 'DELETE',
+                }).then(({ json }) => ({ data: json }));
+            } else {
+                dataProvider.delete(resource,params)
+            }
+    },
+    create: (resource: ResourceType, params: CareateParams) => {
+        console.log(params)
+        if(resource === "static-data/technologies/details") {
+            const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/static-data/technologies`;
+                return httpClient(url, {
+                    method: 'POST',
+                    body: JSON.stringify(params.data)
+                }).then(({ json }) => ({ data: json }));
+            } else {
+                dataProvider.create(resource,params)
+            } 
+    }
+    
+
 };
 
 const dataProviders = [
@@ -113,7 +171,7 @@ const dataProviders = [
     },
     {
         dataProvider: customListDataProvider,
-        resources: ['static-data/technologies/details', 'static-data/about-us/all'],
+        resources: ['static-data/technologies/details', 'static-data/about-us/all', 'static-data/technologies'],
     },
 ];
 

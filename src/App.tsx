@@ -1,4 +1,4 @@
-import { Admin, ListGuesser, Resource, ShowGuesser } from 'react-admin';
+import { Admin, ListGuesser, Menu, Resource, ShowGuesser } from 'react-admin';
 import { Layout } from './Layout';
 import { authProvider } from './utils/authProvider';
 import { List, Datagrid, TextField } from 'react-admin';
@@ -7,8 +7,16 @@ import { AddressList } from './views/address';
 import { UserList, UserShow } from './views/user';
 import { JobOfferList } from './views/joboffer';
 import { TechnologyList } from './views/technology';
-import { EditorList } from './views/editor';
-import { AdminList } from './views/admin';
+import { EditorCreate, EditorList } from './views/editor';
+import { AdminCreate, AdminList } from './views/admin';
+import { TechnologyCreate } from './views/technology/index';
+
+import PeopleIcon from '@mui/icons-material/People';
+import WorkIcon from '@mui/icons-material/Work';
+import StaticDataIcon from '@mui/icons-material/Storage';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import EditorIcon from '@mui/icons-material/Edit';
+import AdminIcon from '@mui/icons-material/Security';
 
 const EnumList = () => (
     <List pagination={false}>
@@ -19,6 +27,26 @@ const EnumList = () => (
     </List>
 );
 
+const CustomMenu = (props) => (
+    <Menu {...props}>
+        <Menu.Item to="/users" primaryText="Users" leftIcon={<PeopleIcon />} />
+        <Menu.Item to="/job-offers" primaryText="Job Offers" leftIcon={<WorkIcon />} />
+        
+        <Menu.DashboardItem primaryText="Static Data" leftIcon={<StaticDataIcon />}>
+            <Menu.Item to="/static-data/form-of-employments" primaryText="Form of Employments" />
+            <Menu.Item to="/static-data/work-types" primaryText="Work Types" />
+            <Menu.Item to="/static-data/technologies/details" primaryText="Technologies" />
+            <Menu.Item to="/static-data/addresses/with-postal-codes" primaryText="Addresses" />
+            <Menu.Item to="/static-data/about-us/all" primaryText="About Us" />
+        </Menu.DashboardItem>
+
+        <Menu.Item to="/notifications" primaryText="Notifications" leftIcon={<NotificationsIcon />} />
+        <Menu.Item to="/editor" primaryText="Editor" leftIcon={<EditorIcon />} />
+        <Menu.Item to="/admin" primaryText="Admin" leftIcon={<AdminIcon />} />
+    </Menu>
+);
+
+const CustomLayout = (props) => <Layout {...props} menu={CustomMenu} />;
 export const App = () => (
     <Admin layout={Layout} dataProvider={dataProvider} authProvider={authProvider}>
         <Resource name='users' list={UserList} show={UserShow} options={{ label: 'Users' }} />
@@ -26,14 +54,14 @@ export const App = () => (
         <Resource name='static-data/form-of-employments' list={EnumList} options={{ label: 'Form of employments' }} />
         <Resource name='static-data/work-types' list={EnumList} options={{ label: 'Work types' }} />
 
-        <Resource name='static-data/technologies/details' list={TechnologyList} options={{ label: 'Technologies' }} />
+        <Resource name='static-data/technologies/details' list={TechnologyList} options={{ label: 'Technologies' }}  create={TechnologyCreate}/>
 
         <Resource name='static-data/addresses/with-postal-codes' list={AddressList} options={{ label: 'Addresses' }} />
         <Resource name='static-data/about-us/all' list={ListGuesser} options={{ label: 'About Us' }} />
 
         <Resource name='notifications' list={ListGuesser} />
 
-        <Resource name='editor' list={EditorList} options={{ label: 'Editor' }} />
-        <Resource name='admin' list={AdminList} options={{ label: 'Admin' }} />
+        <Resource name='editor' list={EditorList} options={{ label: 'Editor' }} create={EditorCreate} />
+        <Resource name='admin' list={AdminList} options={{ label: 'Admin' }} create={AdminCreate} />
     </Admin>
 );
