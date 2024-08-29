@@ -33,7 +33,15 @@ export const authProvider: AuthProvider = {
         return Promise.resolve();
     },
     checkError: () => Promise.resolve(),
-    checkAuth: () => (localStorage.getItem('access-token') ? Promise.resolve() : Promise.reject()),
+    checkAuth: () => {
+        let token = localStorage.getItem('access-token');
+        const decodedToken: AccessToken | null = token ? jwtDecode(token) : null;
+        const currentTimestamp = Date.now() / 1000 | 0;
+        if( !decodedToken?.exp|| decodedToken?.exp < currentTimestamp){
+            return Promise.reject();
+        }
+        return Promise.resolve();
+    },
     getPermissions: () => {
         return Promise.resolve(undefined);
     },

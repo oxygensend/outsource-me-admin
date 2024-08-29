@@ -9,7 +9,7 @@ export const RecalculateDevelopersPopularityRate = () => {
         try {
             const response = await recalculateDevelopersPopularityRate();
             console.log(response)
-            if (response.status === 204) {
+            if (response.status === 202) {
                 notify('Started recalculating Developers popularity rate ', { type: 'success' });
                 refresh(); 
             } else {

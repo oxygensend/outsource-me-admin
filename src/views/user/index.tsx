@@ -1,13 +1,15 @@
 import { Card, CardContent } from '@mui/material';
-import { Datagrid, EmailField, FilterList, FilterListItem, ImageField, List, Show, SimpleShowLayout, TextField, UrlField } from 'react-admin';
+import { Datagrid, EmailField, FilterList, FilterListItem, FilterLiveSearch, ImageField, List, Show, SimpleShowLayout, TextField, TextInput, UrlField } from 'react-admin';
 import CategoryIcon from '@mui/icons-material/LocalOffer';
 import WorkIcon from '@mui/icons-material/Work';
 import { RecalculateDevelopersPopularityRate } from './components/RecalculateDevelopersPopularityRate';
 import { ClearCacheButton } from './components/ClearCacheButton';
+import { MailButton } from './components/MailButton';
 
 const UserSidebar = () => (
     <Card sx={{ order: -1, mr: 2, mt: 9, width: 200 }}>
         <CardContent>
+            <FilterLiveSearch source='search'/>
             <FilterList label="Account Type" icon={<CategoryIcon />}>
                 <FilterListItem label={"Developer"} value={{ accountType: 'DEVELOPER' }} />
                 <FilterListItem label={"Principle"} value={{ accountType: 'PRINCIPLE' }} />
@@ -32,6 +34,7 @@ export const UserList = () => (
             <TextField source="name" />
             <TextField source="surname" />
             <TextField source="accountType" />
+            <MailButton/>
         </Datagrid>
     </List>
 );

@@ -1,5 +1,5 @@
 import { Button, useNotify, useRefresh } from "react-admin";
-import { loadAddresses, recalculateDevelopersPopularityRate } from '../../../api/adminApi';
+import { loadAddresses, recalculateDevelopersPopularityRate, recalculateJobOffersPopularityRate } from '../../../api/adminApi';
 import CalculateIcon from '@mui/icons-material/Calculate'; 
 export const RecalculateJobOffersPopularityRateButton = () => {
     const notify = useNotify();
@@ -7,10 +7,10 @@ export const RecalculateJobOffersPopularityRateButton = () => {
   
     const handleClick = async () => {
         try {
-            const response = await RecalculateJobOffersPopularityRateButton();
+            const response = await recalculateJobOffersPopularityRate();
             console.log(response)
-            if (response.status === 204) {
-                notify('Started recalculating Developers popularity rate ', { type: 'success' });
+            if (response.status === 202) {
+                notify('Started recalculating Job offers popularity rate ', { type: 'success' });
                 refresh(); 
             } else {
                 notify('Failed to start the process', { type: 'warning' });
@@ -21,7 +21,7 @@ export const RecalculateJobOffersPopularityRateButton = () => {
     };
   
     return (
-        <Button onClick={handleClick} label="Recalculate developers popularity rate"   variant="contained"
+        <Button onClick={handleClick} label="Recalculate job offers popularity rate"   variant="contained"
         startIcon={<CalculateIcon/>}
         style={{
             margin: '10px 0',

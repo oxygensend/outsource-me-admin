@@ -10,6 +10,8 @@ import {
     DELETE,
     GET_MANY,
     GET_MANY_REFERENCE,
+    Show,
+    GetOneParams,
 } from 'react-admin';
 import httpClient from './httpClient';
 import { create } from 'domain';
@@ -24,7 +26,7 @@ const customDataProvider = {
         const query = {
             // sort: JSON.stringify([field, order]),
             page: page,
-            limit: perPage,
+            size: perPage,
             ...params.filter,
             // filter: JSON.stringify(params.filter),
         };
@@ -33,7 +35,7 @@ const customDataProvider = {
 
         const response = await httpClient(url);
         const data = response.json.data;
-        console.log(data);
+        console.log(data, response);
 
         // Custom logic to fetch the total count
         // const totalResponse = await  httpClient(`${import.meta.env.VITE_SIMPLE_REST_URL}/${resource}/count`);
@@ -49,7 +51,7 @@ const customDataProvider = {
     delete: (resource, params) => {
         if(resource === 'admin' || resource === 'editor'){
 
-        const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/admin/users/delete-user/${params.id}`;
+        const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/admin-users/delete-user/${params.id}`;
             return httpClient(url, {
                 method: 'DELETE',
             }).then(({ json }) => ({ data: json }));
@@ -61,7 +63,7 @@ const customDataProvider = {
         if(resource === 'admin' || resource === 'editor'){
 
             console.log(params)
-            const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/admin/users/create-user`;
+            const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/admin-users/create-user`;
             return httpClient(url, {
                 method: 'POST',
                 body: JSON.stringify(params.data)
@@ -70,7 +72,18 @@ const customDataProvider = {
             dataProvider.create(resource,params)
         } 
 
+    },
+    getOne: (resource: ResourceType, params: GetOneParams) => {
+        if(resource === 'job-offers') {
+            const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/job-offers/-id/${params.id}`;
+            return httpClient(url).then (({json}) => ({data: json}));
+        } else {
+            return dataProvider.getOne(resource, params);
+        }
+
     }
+
+    
 };
 
 const customListWithIdDataProvider = {
