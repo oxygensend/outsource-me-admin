@@ -4,7 +4,8 @@ import CategoryIcon from '@mui/icons-material/LocalOffer';
 import WorkIcon from '@mui/icons-material/Work';
 import { RecalculateDevelopersPopularityRate } from './components/RecalculateDevelopersPopularityRate';
 import { ClearCacheButton } from './components/ClearCacheButton';
-import { MailButton } from './components/MailButton';
+import { NotificationForm } from './components/NotificationForm';
+import { MailForm } from './components/MailForm';
 
 const UserSidebar = () => (
     <Card sx={{ order: -1, mr: 2, mt: 9, width: 200 }}>
@@ -27,14 +28,15 @@ export const UserList = () => (
     <List aside={<UserSidebar />}>
         <RecalculateDevelopersPopularityRate />
         <ClearCacheButton/>
-        <Datagrid rowClick="show">
+        <Datagrid >
             <TextField source="id" />
             <ImageField source="imagePath" title="id" sx={{ '& img': { maxWidth: 50, maxHeight: 50, objectFit: 'contain' } }} />
             <EmailField source="email" />
             <TextField source="name" />
             <TextField source="surname" />
             <TextField source="accountType" />
-            <MailButton/>
+            <NotificationForm />
+            <MailForm/>
         </Datagrid>
     </List>
 );

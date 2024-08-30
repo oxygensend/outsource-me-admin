@@ -1,10 +1,11 @@
-import { ArrayField, BooleanField, ChipField, Datagrid, DateField, FilterList, FilterListItem, FilterLiveSearch, List, NumberField, RichTextField, Show, SimpleShowLayout, TextField } from "react-admin";
+import { ArrayField, BooleanField, ChipField, Datagrid, DateField, DeleteButton, FilterList, FilterListItem, FilterLiveSearch, List, NumberField, RichTextField, Show, SimpleShowLayout, TextField } from "react-admin";
 import { ClearCacheButton } from "./components/ClearCacheButton";
 import { RecalculateJobOffersPopularityRateButton } from "./components/RecalculateJobOffersPopularityRateButton";
 import { Card, CardContent, Typography, Chip, Box } from '@mui/material';
 import WorkIcon from '@mui/icons-material/Work';
 import MoneyIcon from '@mui/icons-material/AttachMoney';
 import CategoryIcon from '@mui/icons-material/LocalOffer';
+import { ArchiveButton } from "./components/ArchiveButton";
 
 const JobOfferSidebar = () => (
   <Card sx={{ order: -1, mr: 2, mt: 9, width: 200 }}>
@@ -45,6 +46,8 @@ export const JobOfferList = () => (
       <TextField source="user.fullName"/>
       <NumberField source="numberOfApplications"/>
       <BooleanField source="archived"/>
+      <ArchiveButton/>
+      <DeleteButton/>
     </Datagrid>
   </List>
 )

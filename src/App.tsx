@@ -36,7 +36,7 @@ export const App = () => (
 
         <Resource name='notifications' icon={NotificationsIcon} list={NotificationList} />
 
-        <Resource name='editor' list={Person4Icon} icon={EditorIcon} options={{ label: 'Editor' }} create={EditorCreate} />
+        <Resource name='editor' list={EditorList} icon={EditorIcon} options={{ label: 'Editor' }} create={EditorCreate} />
         <Resource name='admin' list={AdminList} icon={AdminIcon} options={{ label: 'Admin' }} create={AdminCreate} />
 
         <Resource name='static-data/form-of-employments' icon={StaticDataIcon} list={EnumList} options={{ label: 'Form of employments' }} />

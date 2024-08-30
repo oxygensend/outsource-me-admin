@@ -1,8 +1,6 @@
 import axios, {AxiosResponse} from "axios";
 import {JwtHeader, JwtPayload} from "jwt-decode";
 import httpClient from "../utils/httpClient";
-import { RecalculateOrderButton } from '../views/user/components/RecalculateDevelopersPopularityRate';
-import exp from "constants";
 import.meta.env.VITE_SIMPLE_REST_URL 
 
 export interface AuthPayload {
@@ -29,7 +27,25 @@ export interface MailMessageRequest {
     recipientId: string,
     subject: string,
     body: string
+    senderId: string
 }
+
+export interface InternalNotificationRequest {
+    id: string
+    login: string
+    serviceId: string
+    content: InternalMessage
+}
+
+export interface InternalMessage {
+    content: string
+    recipients: RecipientId[]
+}
+
+export interface RecipientId {
+    id: string
+}
+
 
 
 export const authenticate = (authPayload: AuthPayload): Promise<AxiosResponse<AuthResponse>> => {
@@ -64,5 +80,17 @@ export const loadAddressesForceStop = () => {
  }
 
  export const mailMessage = (request: MailMessageRequest) => {
-    return httpClient(import.meta.env.VITE_SIMPLE_REST_URL + "/mail-messages", {method: "POST"})
+    return httpClient(import.meta.env.VITE_SIMPLE_REST_URL + "/mail-messages", {method: "POST",
+        body: JSON.stringify(request)
+    })
+ }
+
+ export const archiveJobOffer = (id: string) => {
+    return httpClient(import.meta.env.VITE_SIMPLE_REST_URL + "/admin-job-offers/archive/" + id, 
+        {method: "POST"}
+    )
+ }
+ 
+ export const sendNotification = (request: InternalNotificationRequest) => {
+    return httpClient(import.meta.env.VITE_SIMPLE_REST_URL + "/notifications/internalSync", {method: "POST", body: JSON.stringify(request)})
  }

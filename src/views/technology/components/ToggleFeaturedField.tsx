@@ -10,10 +10,10 @@ export const ToggleFeaturedField = () => {
     const refresh = useRefresh();
 
     const handleToggle = () => {
-        const updatedFeatured = !record.featured;
+        const updatedFeatured = !record?.featured;
 
         dataProvider
-            .update('static-data/technologies', { id: record.id, data: { featured: updatedFeatured } })
+            .update('static-data/technologies', { id: record?.id, data: { featured: updatedFeatured } })
             .then(() => {
                 notify('Featured status updated', { type: 'success' });
                 refresh();
@@ -25,7 +25,7 @@ export const ToggleFeaturedField = () => {
 
     return (
         <IconButton onClick={handleToggle}>
-            {record.featured ? <CheckIcon /> : <ClearIcon />}
+            {record?.featured ? <CheckIcon /> : <ClearIcon />}
         </IconButton>
     );
 };

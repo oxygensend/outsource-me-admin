@@ -3,7 +3,7 @@ import { useDelete, useRecordContext } from "react-admin";
 const DeleteButton = () => {
     const record = useRecordContext();
     const [deleteOne, { isPending, error }] = useDelete(
-        'static-data/technologies',
+        'job-offers',
         { id: record?.id, previousData: record }
     );
     const handleClick = () => {

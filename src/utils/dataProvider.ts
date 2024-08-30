@@ -55,7 +55,14 @@ const customDataProvider = {
             return httpClient(url, {
                 method: 'DELETE',
             }).then(({ json }) => ({ data: json }));
-        } else {
+        } 
+        if(resource === 'job-offers') {
+            const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/admin-job-offers/delete/${params.id}`;
+            return httpClient(url, {
+                method: 'DELETE',
+            }).then(({ json }) => ({ data: json }));
+        }
+        else {
             dataProvider.delete(resource,params)
         }
     },
