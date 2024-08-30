@@ -43,7 +43,9 @@ export const authProvider: AuthProvider = {
         return Promise.resolve();
     },
     getPermissions: () => {
-        return Promise.resolve(undefined);
+        const token = localStorage.getItem('access-token');
+        const user: AccessToken | undefined | null = token ? jwtDecode(token) : null;
+        return Promise.resolve(user?.roles[0]);
     },
     getIdentity: () => {
         const token = localStorage.getItem('access-token');

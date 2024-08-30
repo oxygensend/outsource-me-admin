@@ -84,7 +84,11 @@ const customDataProvider = {
         if(resource === 'job-offers') {
             const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/job-offers/-id/${params.id}`;
             return httpClient(url).then (({json}) => ({data: json}));
-        } else {
+        } if(resource === 'applications/all-admin') {
+            const url = `${import.meta.env.VITE_SIMPLE_REST_URL}/applications/${params.id}`;
+            return httpClient(url).then (({json}) => ({data: json}));
+        }
+         else {
             return dataProvider.getOne(resource, params);
         }
 
@@ -179,7 +183,7 @@ const dataProviders = [
     },
     {
         dataProvider: customDataProvider,
-        resources: ['job-offers', 'notifications'],
+        resources: ['job-offers', 'notifications', 'applications/all-admin'],
     },
     {
         dataProvider: customListWithIdDataProvider,
